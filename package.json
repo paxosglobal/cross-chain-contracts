@@ -1,0 +1,28 @@
+{
+  "name": "cross-chain-contracts-internal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "PAXOS",
+  "license": "MIT",
+  "devDependencies": {
+    "@layerzerolabs/lz-v2-utilities": "^2.3.42",
+    "@layerzerolabs/oft-evm": "^0.0.8",
+    "@layerzerolabs/toolbox-hardhat": "^0.3.7",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "@openzeppelin/contracts": "^4.9.6",
+    "@openzeppelin/contracts-upgradeable": "^4.9.6",
+    "dotenv": "^16.4.5",
+    "hardhat": "^2.19.5",
+    "hardhat-deploy": "^0.12.4",
+    "PaxosToken": "github:paxosglobal/paxos-token-contract-internal"
+  },
+  "overrides": {
+    "ethers": "^5.7.2",
+    "hardhat-deploy": "^0.12.4"
+  }
+}
