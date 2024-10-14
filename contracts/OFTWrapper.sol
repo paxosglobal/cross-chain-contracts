@@ -10,6 +10,7 @@ import {PaxosTokenV2} from "PaxosToken/contracts/PaxosTokenV2.sol";
  * @dev This contract is a proxy around LayerZero's OFT standard.  The OFTWrapper can be called
  * by LayerZero to mint and burn tokens like normal.  The OFTWrapper then forwards those requests
  * to the underlying token.  The underlying token must grant this contract permission to mint and burn.
+ * @custom:security-contact smart-contract-security@paxos.com
  */
 contract OFTWrapper is OFTCore {
     //The Paxos token
