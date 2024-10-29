@@ -3,6 +3,7 @@
 pragma solidity ^0.8.20;
 
 import {OFTCore, IOFT} from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/OFTCore.sol";
+import {RateLimiter} from "@layerzerolabs/oapp-evm/contracts/oapp/utils/RateLimiter.sol";
 import {PaxosTokenV2} from "PaxosToken/contracts/PaxosTokenV2.sol";
 
 /**
@@ -10,8 +11,9 @@ import {PaxosTokenV2} from "PaxosToken/contracts/PaxosTokenV2.sol";
  * @dev This contract is a proxy around LayerZero's OFT standard.  The OFTWrapper can be called
  * by LayerZero to mint and burn tokens like normal.  The OFTWrapper then forwards those requests
  * to the underlying token.  The underlying token must grant this contract permission to mint and burn.
+ * @custom:security-contact smart-contract-security@paxos.com
  */
-contract OFTWrapper is OFTCore {
+contract OFTWrapper is OFTCore, RateLimiter {
     //The Paxos token
     PaxosTokenV2 private immutable paxosToken;
 
@@ -24,9 +26,11 @@ contract OFTWrapper is OFTCore {
     constructor(
         address _paxosToken,
         address _lzEndpoint,
-        address _delegate
+        address _delegate,
+        RateLimitConfig[] memory _rateLimitConfigs
     ) OFTCore(6, _lzEndpoint, _delegate) {
         paxosToken = PaxosTokenV2(_paxosToken);
+        _setRateLimits(_rateLimitConfigs);
     }
 
     /**
@@ -56,6 +60,16 @@ contract OFTWrapper is OFTCore {
     }
 
     /**
+     * @dev Sets the rate limits based on RateLimitConfig array. Only callable by the owner.
+     * @param _rateLimitConfigs An array of RateLimitConfig structures defining the rate limits.
+     */
+    function setRateLimits(
+        RateLimitConfig[] calldata _rateLimitConfigs
+    ) external onlyOwner {
+        _setRateLimits(_rateLimitConfigs);
+    }
+
+    /**
      * @dev Internal function to perform a debit operation.  Calls the underlying token
      * to perform the burn via `decreaseSupplyFromAddress`.
      * @param _from The address to debit.
@@ -80,6 +94,7 @@ contract OFTWrapper is OFTCore {
             _minAmountLD,
             _dstEid
         );
+        _checkAndUpdateRateLimit(_dstEid, amountSentLD);
         paxosToken.decreaseSupplyFromAddress(amountSentLD, _from);
     }
 

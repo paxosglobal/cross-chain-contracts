@@ -10,8 +10,9 @@ contract OFTWrapperFixture is OFTWrapper {
     constructor(
         address _tokenAddress,
         address _lzEndpoint,
-        address _delegate
-    ) OFTWrapper(_tokenAddress, _lzEndpoint, _delegate) {
+        address _delegate,
+        RateLimitConfig[] memory _rateLimitConfigs
+    ) OFTWrapper(_tokenAddress, _lzEndpoint, _delegate, _rateLimitConfigs) {
     }
 
     //Used to test the _debit internal function directly
