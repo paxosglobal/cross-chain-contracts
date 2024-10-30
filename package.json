@@ -11,6 +11,7 @@
   "license": "MIT",
   "devDependencies": {
     "@layerzerolabs/lz-v2-utilities": "^2.3.42",
+    "@layerzerolabs/oapp-evm": "^0.0.4",
     "@layerzerolabs/oft-evm": "^0.0.8",
     "@layerzerolabs/toolbox-hardhat": "^0.3.7",
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",

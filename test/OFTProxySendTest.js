@@ -56,8 +56,18 @@ describe('OFTWrapper Send Test', function () {
     mockEndpointA = await EndpointV2Mock.deploy(eidA);
     mockEndpointB = await EndpointV2Mock.deploy(eidB);
     // Deploying two instances of MyOFT contract and linking them to the mock LZEndpoint
-    myOFTA = await MyOFT.connect(ownerA).deploy(tokenFixture.address, mockEndpointA.address, ownerA.address)
-    myOFTB = await MyOFT.connect(ownerB).deploy(tokenFixtureB.address, mockEndpointB.address, ownerB.address)
+    const rateLimitConfigA = {
+      dstEid: 2,
+      limit: ethers.utils.parseEther('1000'),
+      window: 100
+   }
+    const rateLimitConfigB = {
+      dstEid: 1,
+      limit: ethers.utils.parseEther('1000'),
+      window: 100
+   }
+    myOFTA = await MyOFT.connect(ownerA).deploy(tokenFixture.address, mockEndpointA.address, ownerA.address, [rateLimitConfigA])
+    myOFTB = await MyOFT.connect(ownerB).deploy(tokenFixtureB.address, mockEndpointB.address, ownerB.address, [rateLimitConfigB])
 
     // Setting destination endpoints in the LZEndpoint mock for each MyOFT instance
     await mockEndpointA.setDestLzEndpoint(myOFTB.address, mockEndpointB.address);
