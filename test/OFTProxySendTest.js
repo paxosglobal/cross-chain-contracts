@@ -60,12 +60,12 @@ describe('OFTWrapper Send Test', function () {
       dstEid: 2,
       limit: ethers.utils.parseEther('1000'),
       window: 100
-   }
+    }
     const rateLimitConfigB = {
       dstEid: 1,
       limit: ethers.utils.parseEther('1000'),
       window: 100
-   }
+    }
     myOFTA = await MyOFT.connect(ownerA).deploy(tokenFixture.address, mockEndpointA.address, ownerA.address, [rateLimitConfigA])
     myOFTB = await MyOFT.connect(ownerB).deploy(tokenFixtureB.address, mockEndpointB.address, ownerB.address, [rateLimitConfigB])
 

@@ -15,4 +15,8 @@ contract PaxosTokenFixture is PaxosTokenV2 {
         balances[burnFromAddress] -= value;
         return true;
     }
+    
+    function decimals() public pure override returns (uint8) {
+        return 6;
+    }
 }

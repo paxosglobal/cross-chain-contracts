@@ -19,6 +19,13 @@ describe('OFTWrapper Test', function () {
       });
     });
 
+    describe('decimalConversionRate', function () {
+      it('can get decimal conversion rate', async function () {
+        let res = await this.contract.decimalConversionRate();
+        assert.equal(res, 1)
+      });
+    });
+
     describe('token', function () {
       it('can get token address', async function () {
         let res = await this.contract.token();
@@ -42,7 +49,6 @@ describe('OFTWrapper Test', function () {
         }
         await this.contract.setRateLimits([newRateLimitConfig])
         const rateLimitConfig = await this.contract.rateLimits(newRateLimitConfig.dstEid);
-        console.log(rateLimitConfig)
         assert.equal(rateLimitConfig.limit.toString(), newRateLimitConfig.limit.toString())
         assert.equal(rateLimitConfig.window, newRateLimitConfig.window)
       });

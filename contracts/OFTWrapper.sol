@@ -28,7 +28,7 @@ contract OFTWrapper is OFTCore, RateLimiter {
         address _lzEndpoint,
         address _delegate,
         RateLimitConfig[] memory _rateLimitConfigs
-    ) OFTCore(6, _lzEndpoint, _delegate) {
+    ) OFTCore(PaxosTokenV2(_paxosToken).decimals(), _lzEndpoint, _delegate) {
         paxosToken = PaxosTokenV2(_paxosToken);
         _setRateLimits(_rateLimitConfigs);
     }
