@@ -3,9 +3,13 @@ This repository contains contracts to support cross chain bridging on EVM chains
 [OFTWrapper](contracts/OFTWrapper.sol) which supports bridging using LayerZero.
 
 ## OFTWrapper
-This contract is a proxy around LayerZero's OFT standard. The `OFTWrapper` can be called 
-by LayerZero to mint and burn tokens like normal. The `OFTWrapper` then forwards those requests
-to the underlying token. The underlying token must grant this contract permission to mint and burn.
+`OFTWrapper` serves as a proxy for LayerZero's OFT standard, allowing LayerZero to mint and burn tokens as usual, 
+which includes the same AML standards as a same chain transfer. When LayerZero initiates a mint or burn request, 
+the `OFTWrapper` forwards it to the underlying token contract. For this to work, the underlying token must authorize 
+`OFTWrapper` to perform minting and burning operations on its behalf.
+
+## Audits
+Audits were performed by both Zellic and Trail of Bits.  Audit reports can be found [here](audits/).
 
 ## Upgrade process
 `OFTWrapper` is a non-upgradeable contract. If a change needs to be made a new contract should be deployed.
