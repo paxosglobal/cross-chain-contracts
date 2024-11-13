@@ -1,4 +1,4 @@
-# cross-chain-contracts-internal
+# Cross Chain Contracts
 This repository contains contracts to support cross chain bridging on EVM chains. The main contract is
 [OFTWrapper](contracts/OFTWrapper.sol) which supports bridging using LayerZero.
 
