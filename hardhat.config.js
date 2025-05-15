@@ -7,18 +7,18 @@ dotenv.config();
 
 const {
   PRIVATE_KEY,
-  MAINNET_NETWORK_URL,
-  SEPOLIA_NETWORK_URL
+  URL_ETH_MAINNET,
+  URL_ETH_SEPOLIA
 } = process.env;
 
 module.exports = {
   networks: {
     ethMain: {
-      url: MAINNET_NETWORK_URL,
+      url: URL_ETH_MAINNET,
       ...(PRIVATE_KEY ? { accounts: [PRIVATE_KEY] } : {}),
     },
     ethSepolia: {
-      url: SEPOLIA_NETWORK_URL,
+      url: URL_ETH_SEPOLIA,
       ...(PRIVATE_KEY ? { accounts: [PRIVATE_KEY] } : {}),
     },
   },
