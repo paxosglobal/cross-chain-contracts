@@ -1,4 +1,7 @@
+const fs = require('fs')
+const yaml = require('js-yaml')
 // Helper functions for the deploy scripts.
+
 SOLANA_EIDS = [40168, 30168] //40168 = devnet, 30168 = mainnet
 
 // Throws an error if any of the arguments are falsy or undefined.
@@ -24,8 +27,24 @@ function getPeerAddressBytes(address, destinationEid) {
     }
     return peerAddressBytes;
 }
-  
+
+function ReadConfig(path) {
+    const transactionData = fs.readFileSync(path, 'utf-8');
+    return yaml.load(transactionData)
+}
+
+function WriteConfig(path, config) {
+  const file = yaml.dump(config, {
+    lineWidth: -1,
+    noRefs: true,
+    forceQuotes: true,
+  })
+  fs.writeFileSync(path, file)
+}
+
 module.exports = {
     ValidateEnvironmentVariables,
-    getPeerAddressBytes
+    getPeerAddressBytes,
+    ReadConfig,
+    WriteConfig
 }
