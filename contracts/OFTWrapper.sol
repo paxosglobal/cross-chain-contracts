@@ -2,7 +2,8 @@
 
 pragma solidity ^0.8.20;
 
-import {OFTCore, IOFT} from "@layerzerolabs/lz-evm-oapp-v2/contracts/oft/OFTCore.sol";
+import {OFTCore} from "@layerzerolabs/oft-evm/contracts/OFTCore.sol";
+import {IOFT} from "@layerzerolabs/oft-evm/contracts/interfaces/IOFT.sol";
 import {RateLimiter} from "@layerzerolabs/oapp-evm/contracts/oapp/utils/RateLimiter.sol";
 import {PaxosTokenV2} from "PaxosToken/contracts/PaxosTokenV2.sol";
 
@@ -94,7 +95,7 @@ contract OFTWrapper is OFTCore, RateLimiter {
             _minAmountLD,
             _dstEid
         );
-        _checkAndUpdateRateLimit(_dstEid, amountSentLD);
+        _outflow(_dstEid, amountSentLD);
         paxosToken.decreaseSupplyFromAddress(amountSentLD, _from);
     }
 
